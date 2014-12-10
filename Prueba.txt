@@ -1,0 +1,8 @@
+var vm_id ='bc257274-74fc-41bb-b845-3d28eed8f3d5';
+var token = 'aeB5zRzYi3AfWzF5GiqTHjzwYKosmpVs7hMZWOROI72LRBwZJX-M3G7VRonbv-fuGQrHxaX3GzSaWG2bq6Vu6w';
+var tenant = '00000000000000000000000000008201';
+var region = 'Spain';
+var check_param = 'mem';
+var divId = 'speedometer';
+
+init_vm(vm_id, token, tenant, region, check_param, divId);

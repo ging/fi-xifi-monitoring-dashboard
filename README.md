@@ -17,15 +17,15 @@ In addition, a refresh button that updates the data for monitoring is also inclu
 
 1. Define the different parameters:
 
- var vm_id ='acd468-s85s-asf55-8765411-112589aa3';
- var token = 'aulfb516747321-32164641-23165484863321';
- var tenant = '000000000000002315441211';
- var region = 'Spain';
- var check_param = 'mem';
- var divId = 'speedometer';
+ var vm_id ='acd468-s85s-asf55-8765411-112589aa3'
+ var token = 'aulfb516747321-32164641-23165484863321'
+ var tenant = '000000000000002315441211'
+ var region = 'Spain'
+ var check_param = 'mem'
+ var divId = 'speedometer'
 
 2. Run the main function:
 
-init_vm(vm_id, token, tenant, region, check_param, divId);
+init_vm(vm_id, token, tenant, region, check_param, divId)
 
 3. That's all!

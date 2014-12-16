@@ -28,8 +28,6 @@ Params:
 
 init_vm = function(vm_id, token, tenant, region, check_param, divId){
 
-	initGraph();
-
 	element.id = check_param;
 
 	JSTACK.Keystone.init('https://cloud.lab.fi-ware.org/keystone/v2.0/');
@@ -49,7 +47,9 @@ init_vm = function(vm_id, token, tenant, region, check_param, divId){
 
 		
 
-	});
+	}, function (error_msg) {
+		var msg = "Widget not working! Athentication failed \n" + error_msg.message + "\n" + error_msg.body;
+		console.log(msg);});
 
 	
 };
@@ -106,9 +106,13 @@ getVMProperties = function(vm_id, region){
 			updateSpeedometers();
 
 			
-		},function (error_msg){console.log(error_msg);},region);
+		},function (error_msg) {
+			var msg = "Widget not working! Error while getting flavor details \n" + error_msg.message + "\n Resource not found! Can't identify server id";
+			console.log(msg);},region);
 
-	}, function (error_msg){console.log(error_msg);}, region);
+	}, function (error_msg) {
+		var msg = "Widget not working! Error while getting server details \n" + error_msg.message + "\n Resource not found! Check VM id";
+		console.log(msg);}, region);
 
 };
 
@@ -122,7 +126,15 @@ real-time status of the element that we are monitoring.
 getVMmeasures = function() {
 
 	
-	//var measures = Monitoring.API.getVMmeasures(vm_id, options.success, options.error, endPoint);
+	// Monitoring.API.getVMmeasures(vm_id, function (resp) {
+
+	// 	measures.percCPULoad = resp.percCPULoad.value;
+	// 	measures.percRAMUsed = resp.percRAMUsed.value;
+	// 	measures.percDiskUsed = resp.percDiskUsed.value;
+
+	// }, function (error_msg) {
+	// 	var msg = "Widget not working! Error while getting VM measures \n" + error_msg.message + "\n" + error_msg.body;
+	// 	console.log(msg);}, endPoint);
 
 	measures.percCPULoad = Math.floor(Math.random()*element.maxVal);
 	measures.percRAMUsed = Math.floor(Math.random()*element.maxVal);
@@ -191,86 +203,24 @@ updateSpeedometers = function() {
 		case 'cpu':
 		//var cpu = Math.round(stats[0].percCPULoad.value);
 		element.speedometer.drawWithInputValue(measures.percCPULoad);
-		console.log(measures.percCPULoad);
+		console.log("CPU load = " + measures.percCPULoad + " %");
 		break;
 
 		case 'disk':
 		//var disk = Math.round(stats[0].percDiskUsed.value);
 		element.speedometer.drawWithInputValue(measures.percDiskUsed);
-		console.log(measures.percDiskUsed);
+		console.log("Disk use = " + measures.percDiskUsed + " GB");
 		break;
 
 		case 'mem':
 		//var mem = Math.round(stats[0].percRAMUsed.value);
 		element.speedometer.drawWithInputValue(measures.percRAMUsed);
-		console.log(element.percRAMUsed);
+		console.log("RAM use = " + measures.percRAMUsed + " MB");
 		break;
 
 		default:
 		console.log(element.id);
 		alert("Error. Can't identify 'check_param' in updateSpeedometers");
 	}
-};
-
-/** 
- Initializing params of the graphic
-*/
-
-initGraph = function() {
-
-	var com_dataset = {
-		fillColor : "rgba(151,187,205,0.5)",
-		strokeColor : "#099EC6",
-		pointColor : "#002E67",
-		pointStrokeColor : "#fff"
-	};
-
-	var com_opt = {
-		scaleOverlay : false,
-		scaleOverride : false,
-		scaleLineColorX : "transparent",
-		scaleLineColorY : "#002E67",
-		scaleLineWidth : 3,
-		scaleFontFamily : "'comfortaa'",
-		scaleFontSize : 12,
-		scaleFontStyle : "normal",
-		scaleFontColorY : "#099EC6",
-		scaleFontColorX : "rgb(127,127,127)",
-		scaleShowGridLinesX : true,
-		scaleShowGridLinesY : false,
-		scaleShowMiniLinesY : false,
-		scaleGridLineColor : "rgba(0,0,0,.05)",
-		scaleGridLineWidth : 2,
-		bezierCurve : false,
-		pointDot : true,
-		pointDotRadius : 4,
-		pointDotStrokeWidth : 2,
-		datasetStroke : true,
-		datasetStrokeWidth : 1,
-		datasetFill : false ,
-		animation : true,
-		animationSteps : 60,
-		animationEasing : "easeOutQuart",
-		onAnimationComplete : null
-	};
-
-	var cpu_dataset = {datasets: [jQuery.extend({}, com_dataset)]};
-	var cpu_opt = jQuery.extend({}, com_opt);
-	cpu_opt.scaleSteps = null;
-	cpu_opt.scaleStepWidth = null;
-	cpu_opt.scaleStartValue = null;
-
-	var disk_dataset = {datasets: [jQuery.extend({}, com_dataset)]};
-	var disk_opt = jQuery.extend({}, com_opt);
-	disk_opt.scaleSteps = null;
-	disk_opt.scaleStepWidth = null;
-	disk_opt.scaleStartValue = null;
-
-	var mem_dataset = {datasets: [jQuery.extend({}, com_dataset)]};
-	var mem_opt = jQuery.extend({}, com_opt);
-	mem_opt.scaleSteps = null;
-	mem_opt.scaleStepWidth = null;
-	mem_opt.scaleStartValue = null;
-
 };
 

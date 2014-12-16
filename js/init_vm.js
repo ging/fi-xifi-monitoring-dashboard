@@ -128,12 +128,12 @@ getVMmeasures = function() {
 	
 	// Monitoring.API.getVMmeasures(vm_id, function (resp) {
 
-	// 	measures.percCPULoad = resp.percCPULoad.value;
-	// 	measures.percRAMUsed = resp.percRAMUsed.value;
-	// 	measures.percDiskUsed = resp.percDiskUsed.value;
+		// 	measures.percCPULoad = resp.percCPULoad.value;
+		// 	measures.percRAMUsed = resp.percRAMUsed.value;
+		// 	measures.percDiskUsed = resp.percDiskUsed.value;
 
 	// }, function (error_msg) {
-	// 	var msg = "Widget not working! Error while getting VM measures \n" + error_msg.message + "\n" + error_msg.body;
+		// 	var msg = "Widget not working! Error while getting VM measures \n" + error_msg.message + "\n" + error_msg.body;
 	// 	console.log(msg);}, endPoint);
 
 	measures.percCPULoad = Math.floor(Math.random()*element.maxVal);
@@ -153,7 +153,6 @@ refreshData = function() {
 	updateSpeedometers();
 
 };
-
 
 
 /** Initializing the monitoring graphic

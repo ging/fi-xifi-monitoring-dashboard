@@ -1,17 +1,24 @@
-// Global Variables
+// Global Variable
 
-var element = {
+var session = {
+
+		vmID: "",
+		token: "",
+		region: "",
+
+		change: true,
+
+		element: {
 			id: "",
-			name : "",
-			maxVal: 0,
-			units : "",
+			name: "",
 			speedometer: ""
-		};
+		},
 
-measures = {
-		percCPULoad: 0,
-		percRAMUsed: 0,
-		percDiskUsed: 0
+		measures: {
+			percCPULoad: 0,
+			percRAMUsed: 0,
+			percDiskUsed: 0
+		}
 	};
 
 /** Main function.
@@ -21,99 +28,61 @@ the virtual machine you want to monitor. Once such data has been collected, draw
 graph of monitoring, on the screen.
 
 Params:
-- check_param: key to identify the parameter you want to monitor. 
-{Monitoring CPU: 'cpu', Monitoring disk: 'disk', Monitoring RAM: 'mem'}
+
+- vm_id: ID of the vm you want to monitor.
+- token: author access token.
+- region: node where the vm has been deployed.
+- monit_param: key to identify the parameter you want to monitor. 
+  {Monitoring CPU: 'cpu', Monitoring disk: 'disk', Monitoring RAM: 'mem'}
 - divId: id of the div where you want to place the monitoring graphic.
 */
 
-init_vm = function(vm_id, token, tenant, region, check_param, divId){
+init_vm = function(vm_id, token, region, monit_param, divId){
 
-	element.id = check_param;
+	session.vmID = vm_id;
+	session.token = token;
+	session.region = region;
 
-	JSTACK.Keystone.init('https://cloud.lab.fi-ware.org/keystone/v2.0/');
+	session.element.id = monit_param;
 
-	JSTACK.Keystone.authenticate(undefined, undefined, token, tenant, function(resp) {
-		
-		compute = JSTACK.Keystone.getservice("compute");
-		
-		for (e in compute.endpoints) {
-	    	compute.endpoints[e].publicURL = 'https://cloud.lab.fi-ware.org/' 
-	    									  + compute.endpoints[e].region 
-	    									  + "/compute" 
-	    									  + compute.endpoints[e].publicURL.replace(/.*:[0-9]*/, "");
-		}
+	switch(session.element.id) {
 
-		getVMProperties(vm_id, region);
-
-		
-
-	}, function (error_msg) {
-		var msg = "Widget not working! Athentication failed \n" + error_msg.message + "\n" + error_msg.body;
-		console.log(msg);});
-
+		case 'cpu':
+			session.element.name = 'CPU Load';
+			break;
+		case 'disk':
+			session.element.name = 'Disk Usage';
+			break;
+		case 'mem':
+			session.element.name = 'Ram Usage';
+			break;
+	}
 	
-};
+
+	getVMmeasures();
 
 
-/** Getting parameters of the virtual machine
+	// UNCOMENT THIS LINES ABOVE IN ORDER TO CHECK FLAVOR'S PARAMS
 
-This function makes an API call to get the parameters of 
-the vm's element we want to monitor.
-*/
+	//JSTACK.Keystone.init('https://cloud.lab.fi-ware.org/keystone/v2.0/');
 
-getVMProperties = function(vm_id, region){
+	//JSTACK.Keystone.authenticate(undefined, undefined, token, tenant, function(resp) {
+		
+		//compute = JSTACK.Keystone.getservice("compute");
+		
+		//for (e in compute.endpoints) {
+	    	//compute.endpoints[e].publicURL = 'https://cloud.lab.fi-ware.org/' 
+	    									  //+ compute.endpoints[e].region 
+	    									  //+ "/compute" 
+	    									  //+ compute.endpoints[e].publicURL.replace(/.*:[0-9]*/, "");
+		//}
+
+		//getVMProperties(vm_id, region);
+
+	//}, function (error_msg) {
+		//var msg = "Widget not working! Athentication failed \n" + error_msg.message + "\n" + error_msg.body;
+		//console.log(msg);});
 	
-	var server;
-	var flavor;
-
-	//Getting the flavor id
-	JSTACK.Nova.getserverdetail(vm_id, function (resp) { server = resp.server;
-		//Getting VM parametres (disk.maxValue and ram.maxValue)	
-		JSTACK.Nova.getflavordetail(server.flavor.id, function (resp) {
-			flavor = resp.flavor;
-
-			switch(element.id){
-
-				case 'cpu':
-				element.name = "CPU";
-				element.maxVal = 100;
-				element.units = "%";
-				console.log(element);
-				break;
-
-				case 'disk':
-				element.name = "DISK";
-				element.maxVal = flavor.disk;
-				element.units = "GB";
-				console.log(element);
-				break;
-
-				case 'mem':
-				element.name = "RAM";
-				element.maxVal = flavor.ram;
-				element.units = "MB";
-				console.log(element);
-				break;
-
-				default:
-				console.log(element);
-				alert("Error. Can not identify 'check_param' in getVMProperties");
-
-			};
-
-			getVMmeasures();
-			element.speedometer = initSpeedometers(divId);
-			updateSpeedometers();
-
-			
-		},function (error_msg) {
-			var msg = "Widget not working! Error while getting flavor details \n" + error_msg.message + "\n Resource not found! Can't identify server id";
-			console.log(msg);},region);
-
-	}, function (error_msg) {
-		var msg = "Widget not working! Error while getting server details \n" + error_msg.message + "\n Resource not found! Check VM id";
-		console.log(msg);}, region);
-
 };
 
 
@@ -126,19 +95,26 @@ real-time status of the element that we are monitoring.
 getVMmeasures = function() {
 
 	
-	// Monitoring.API.getVMmeasures(vm_id, function (resp) {
+	Monitoring.API.getVMmeasures(session.vmID, session.token, function (resp) {
 
-		// 	measures.percCPULoad = resp.percCPULoad.value;
-		// 	measures.percRAMUsed = resp.percRAMUsed.value;
-		// 	measures.percDiskUsed = resp.percDiskUsed.value;
+	
+		var resp = JSON.parse(resp).measures[0];
 
-	// }, function (error_msg) {
-		// 	var msg = "Widget not working! Error while getting VM measures \n" + error_msg.message + "\n" + error_msg.body;
-	// 	console.log(msg);}, endPoint);
+		session.measures.percCPULoad = resp.percCPULoad.value;
+		session.measures.percRAMUsed = parseInt(resp.percRAMUsed.value);
+		session.measures.percDiskUsed = resp.percDiskUsed.value;
 
-	measures.percCPULoad = Math.floor(Math.random()*element.maxVal);
-	measures.percRAMUsed = Math.floor(Math.random()*element.maxVal);
-	measures.percDiskUsed = Math.floor(Math.random()*element.maxVal);
+		session.element.speedometer = initSpeedometers(divId);
+
+		updateSpeedometers();
+
+	
+
+	}, function (error_msg) {
+		var msg = "Widget not working! Error while getting VM measures \n" + error_msg.message + "\n" + error_msg.body;
+		console.log(msg);
+	}, session.region);
+
 	
 };
 
@@ -178,9 +154,9 @@ initSpeedometers = function(divId) {
 	var speedometer = new Speedometer({elementId: divId, 
 										canvasId: 'graphic', 
 											size: 300, 
-											maxVal: element.maxVal, 
-											name: element.name, 
-											units: element.units
+											maxVal: "100", 
+											name: session.element.name, 
+											units: "%"
 										});
 
 	$('#refresh_button').on('click', refreshData);
@@ -197,29 +173,94 @@ initSpeedometers = function(divId) {
 
 updateSpeedometers = function() {
 
-	switch (element.id) {
+	switch (session.element.id) {
 
 		case 'cpu':
 		//var cpu = Math.round(stats[0].percCPULoad.value);
-		element.speedometer.drawWithInputValue(measures.percCPULoad);
-		console.log("CPU load = " + measures.percCPULoad + " %");
+		session.element.speedometer.drawWithInputValue(session.measures.percCPULoad);
+		console.log("CPU load = " + session.measures.percCPULoad + "%");
 		break;
 
 		case 'disk':
 		//var disk = Math.round(stats[0].percDiskUsed.value);
-		element.speedometer.drawWithInputValue(measures.percDiskUsed);
-		console.log("Disk use = " + measures.percDiskUsed + " GB");
+		session.element.speedometer.drawWithInputValue(session.measures.percDiskUsed);
+		console.log("Disk usage = " + session.measures.percDiskUsed + "%");
 		break;
 
 		case 'mem':
 		//var mem = Math.round(stats[0].percRAMUsed.value);
-		element.speedometer.drawWithInputValue(measures.percRAMUsed);
-		console.log("RAM use = " + measures.percRAMUsed + " MB");
+		session.element.speedometer.drawWithInputValue(session.measures.percRAMUsed);
+		console.log("RAM usage = " + session.measures.percRAMUsed + "%");
 		break;
 
 		default:
-		console.log(element.id);
-		alert("Error. Can't identify 'check_param' in updateSpeedometers");
+		console.log(session.element.id);
+		alert("Error. Can't identify 'monit_param' in updateSpeedometers");
 	}
 };
+
+
+
+/** Getting parameters of the virtual machine
+
+This function makes an API call to get the parameters of 
+the vm's element we want to monitor.
+
+
+getVMProperties = function(vm_id, region){
+	
+	var server;
+	var flavor;
+
+	//Getting the flavor id
+	JSTACK.Nova.getserverdetail(vm_id, function (resp) { server = resp.server;
+		//Getting VM parametres (disk.maxValue and ram.maxValue)	
+		JSTACK.Nova.getflavordetail(server.flavor.id, function (resp) {
+			flavor = resp.flavor;
+
+			switch(element.id){
+
+				case 'cpu':
+				element.name = "CPU";
+				element.maxVal = 100;
+				element.units = "%";
+				console.log(element);
+				break;
+
+				case 'disk':
+				element.name = "DISK";
+				element.maxVal = flavor.disk;
+				element.units = "GB";
+				console.log(element);
+				break;
+
+				case 'mem':
+				element.name = "RAM";
+				element.maxVal = flavor.ram;
+				element.units = "MB";
+				console.log(element);
+				break;
+
+				default:
+				console.log(element);
+				alert("Error. Can not identify 'monit_param' in getVMProperties");
+
+			};
+
+			getVMmeasures(vm_id, region);
+			element.speedometer = initSpeedometers(divId);
+			updateSpeedometers();
+
+			
+		},function (error_msg) {
+			var msg = "Widget not working! Error while getting flavor details \n" + error_msg.message + "\n Resource not found! Can't identify server id";
+			console.log(msg);},region);
+
+	}, function (error_msg) {
+		var msg = "Widget not working! Error while getting server details \n" + error_msg.message + "\n Resource not found! Check VM id";
+		console.log(msg);}, region);
+
+};
+
+*/
 

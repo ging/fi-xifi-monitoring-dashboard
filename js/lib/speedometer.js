@@ -166,9 +166,9 @@ Speedometer = function (spec) {
 		options.ctx.fillText(spec.units, options.center.X, options.center.Y + options.radius/5);
 
 		options.ctx.globalAlpha = 1.0;
-		options.ctx.font = '30px comfortaa';
+		options.ctx.font = '20px comfortaa';
 		options.ctx.fillStyle = '#002E67';
-		options.ctx.fillText(spec.name, options.center.X, options.center.Y + options.radius - 40);
+		options.ctx.fillText(spec.name, options.center.X, 170 + options.radius - 40);
 
 	    options.ctx.stroke();
 	}

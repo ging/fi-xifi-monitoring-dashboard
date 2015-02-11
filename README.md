@@ -1,5 +1,5 @@
-vm_monitoring_widget
-====================
+fi-xifi-monitoring-dashboard
+============================
 
 This function allows you to add to your website a dynamic graph showing monitoring data of a virtual machine.
 

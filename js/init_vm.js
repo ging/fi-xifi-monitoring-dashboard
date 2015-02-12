@@ -42,7 +42,7 @@ init_vm = function(vm_id, token, region, monit_param, divId){
 	session.vmID = vm_id;
 	session.token = token;
 	session.region = region;
-
+	session.divId = divId;
 	session.element.id = monit_param;
 
 	switch(session.element.id) {
@@ -104,7 +104,7 @@ getVMmeasures = function() {
 		session.measures.percRAMUsed = parseInt(resp.percRAMUsed.value);
 		session.measures.percDiskUsed = resp.percDiskUsed.value;
 
-		session.element.speedometer = initSpeedometers(divId);
+		session.element.speedometer = initSpeedometers(session.divId);
 
 		updateSpeedometers();
 
@@ -145,6 +145,7 @@ initSpeedometers = function(divId) {
 			id: 'refresh'
 		}).append(
 			$('<button>', {
+				text: 'Refresh',
 				id: 'refresh_button'
 			})),
 		$('<canvas>', {

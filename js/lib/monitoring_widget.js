@@ -109,7 +109,7 @@ Monitoring.API = (function (_Monitoring, undefined) {
 	};
 
     return {
-	    getVMmeasures: getVMmeasures,
+	    getVMmeasures: getVMmeasures
     };
     
 }(Monitoring));

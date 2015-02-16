@@ -14,7 +14,13 @@ In addition, a refresh button that updates the data for monitoring is also inclu
 
 -- Example of use --
 
-1. Define the different parameters:
+1 - First of all, clone the repository in your machine.
+
+2 - Go to 'tools' directory and run compile.sh. A new monit_widget.js file will be created.
+
+3 - Include monit_widget.js in your website.
+
+4 - Define the different parameters:
 
 - var vm_id ='acd468-s85s-asf55-8765411-112589aa3'
 - var token = 'aulfbgd7321-32164641-2316863321'
@@ -22,8 +28,8 @@ In addition, a refresh button that updates the data for monitoring is also inclu
 - var check_param = 'mem'
 - var divId = 'speedometer'
 
-2. Run the main function:
+5 - Run the main function:
 
 init_vm(vm_id, token, tenant, region, check_param, divId)
 
-3. That's all!
+6 - That's all!

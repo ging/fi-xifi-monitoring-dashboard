@@ -1,0 +1,34 @@
+body{font-family: sans-serif;}
+
+h1{
+	text-align: center;
+}
+
+#refresh_button{
+	 width:30px;
+     height:30px;
+     text-align: center;
+     background: url(img/refresh_icon.png);
+     background-position: center;
+     background-size: contain;
+     background-repeat: no-repeat;
+     border-radius: 10px;
+}
+
+#refresh {
+	margin-left: 370px;
+}
+
+#speedometer {
+     text-align: center;
+	margin-top: 50px;
+}
+
+.container{
+	width: 400px;
+	margin: 0 auto;
+}
+
+
+
+

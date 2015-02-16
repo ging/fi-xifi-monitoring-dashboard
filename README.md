@@ -30,6 +30,6 @@ In addition, a refresh button that updates the data for monitoring is also inclu
 
 5 - Run the main function:
 
-init_vm(vm_id, token, tenant, region, check_param, divId)
+init_vm(vm_id, token, region, check_param, divId)
 
 6 - That's all!

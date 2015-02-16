@@ -1,4 +1,5 @@
 #!/bin/bash
+mkdir ../dist
 FILE=../dist/monit_widget.js
 rm $FILE
 cat ../src/js/lib/encoder.js >> $FILE

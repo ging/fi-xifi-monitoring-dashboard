@@ -1,34 +1,43 @@
 fi-xifi-monitoring-dashboard
 ============================
 
-This function allows you to add to your website a dynamic graph showing monitoring data of a virtual machine.
+This widget allows you to add to your website a dynamic graph showing monitoring data of a virtual machine.
 
-For proper operation of the function is necessary to know:
+For proper operation of the widget is necessary to know:
 - The id of the virtual machine.
-- The author access token.
+- The user Oauth2 token (access token).
 - The region in which the machine has been deployed.
 - The parameter you want to monitor ['cpu' 'disk', 'mem']
-- The id of the div where we want to include the graphic.
+- The id of the div where you want to include the graphic.
 
-In addition, a refresh button that updates the data for monitoring is also included.
+In addition, a refresh button that updates the data for monitoring is included.
 
 -- Example of use --
 
 1 - First of all, clone the repository in your machine.
 
+<pre>
+git clone https://github.com/ging/fi-xifi-monitoring-dashboard.git
+</pre>
+
 2 - Go to 'tools' directory and run compile.sh. A new monit_widget.js file will be created.
 
-3 - Include monit_widget.js in your website.
+<pre>
+cd fi-xifi-monitoring-dashboard/tools
+./compile.sh
+</pre>
+
+3 - Include monit_widget.js in your website (saved in dist/monit_widget.js).
 
 4 - Define the different parameters:
 
-- var vm_id ='acd468-s85s-asf55-8765411-112589aa3'
-- var token = 'aulfbgd7321-32164641-2316863321'
+- var vm_id ='adsds4-s85s-asf55-8723411-2232334'
+- var token = 'aulfbgd732fdfdgdgfdsd12334516863321'
 - var region = 'Spain'
 - var check_param = 'mem'
 - var divId = 'speedometer'
 
-5 - Run the main function:
+5 - Call the main function:
 
 init_vm(vm_id, token, region, check_param, divId)
 

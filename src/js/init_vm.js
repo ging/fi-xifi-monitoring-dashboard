@@ -104,7 +104,7 @@ getVMmeasures = function() {
 		session.measures.percRAMUsed = parseInt(resp.percRAMUsed.value);
 		session.measures.percDiskUsed = resp.percDiskUsed.value;
 
-		session.element.speedometer = initSpeedometers(session.divId);
+		session.element.speedometer = drawSpeedometer(session.divId);
 
 		updateSpeedometers();
 

@@ -1,5 +1,3 @@
-var Monitoring = Monitoring || {};
-
 // Current version is **0.1**.
 
 Monitoring.VERSION = '0.1';

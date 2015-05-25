@@ -45,13 +45,15 @@ Monitoring.Widget = (function(_Monitoring, undefined) {
 	- vm_id: ID of the vm you want to monitor.
 	- token: author access token.
 	- region: node where the vm has been deployed.
+	- period: defines the period , in seconds , of the refresh function. 
+	   It can be set as ' undefined ' if you don't want to refresh the data periodically.
 	- monit_param: key to identify the parameter you want to monitor. 
 	  {Monitoring CPU: 'cpu', Monitoring disk: 'disk', Monitoring RAM: 'mem'}
 	- divId: id of the div where you want to place the monitoring graphic.
 	
 	*/
 
-	init = function(vm_id, token, region, monit_param, divId){
+	init = function(vm_id, token, region, period, monit_param, divId) {
 
 		session.vmID = vm_id;
 		session.token = token;
@@ -75,6 +77,11 @@ Monitoring.Widget = (function(_Monitoring, undefined) {
 
 		getMeasures();
 
+		if(period !== undefined){
+			console.log('Setting refresh period to '+ period + ' seconds...')
+			setInterval(function(){refreshData()}, period*1000);
+		}
+		
 	};
 
 	/** 
@@ -88,10 +95,23 @@ Monitoring.Widget = (function(_Monitoring, undefined) {
 
 	getMeasures = function() {
 
-	
+
+		session.measures.percCPULoad = 50;
+		session.measures.percRAMUsed = 10;
+		session.measures.percDiskUsed = 60;
+
+		session.element.speedometer = drawSpeedometer(session.divId);
+
+		updateSpeedometer();
+
+	/**
 	Monitoring.API.getVMmeasures(session.vmID, session.token, function (resp) {
 	
+			console.log('Respuesta sin parsear ', resp);
+
 			var resp = JSON.parse(resp).measures[0];
+
+			console.log('Respuesta parseada ',resp);
 
 			session.measures.percCPULoad = resp.percCPULoad.value;
 			session.measures.percRAMUsed = parseInt(resp.percRAMUsed.value);
@@ -105,7 +125,7 @@ Monitoring.Widget = (function(_Monitoring, undefined) {
 			var msg = "Widget not working! Error while getting VM measures \n" + error_msg.message + "\n" + error_msg.body;
 			console.log(msg);
 		}, session.region);
-
+	*/
 	
 	};
 
@@ -116,6 +136,8 @@ Monitoring.Widget = (function(_Monitoring, undefined) {
 	*/
 
 	refreshData = function() {
+
+		console.log('Refreshing monitoring data...');
 
 		getMeasures();
 		updateSpeedometer();

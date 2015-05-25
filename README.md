@@ -36,12 +36,13 @@ cd fi-xifi-monitoring-dashboard/tools
 - var vm_id ='adsds4-s85s-asf55-8723411-2232334'
 - var token = 'aulfbgd732fdfdgdgfdsd12334516863321'
 - var region = 'Spain'
+- var period = 10
 - var check_param = 'mem'
 - var divId = 'speedometer'
 
 5 - Call the main function:
 
-<pre>init_vm(vm_id, token, region, check_param, divId)</pre>
+<pre>init_vm(vm_id, token, region, period, check_param, divId)</pre>
 
 
 6 - That's all!

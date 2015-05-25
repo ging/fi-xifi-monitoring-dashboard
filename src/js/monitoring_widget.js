@@ -9,7 +9,7 @@ Monitoring.AUTHORS = 'GING';
 
 Monitoring.Widget = (function(_Monitoring, undefined) {
 
-	var session, init, getMeasures, refreshData, drawSpeedometer, updateSpeedometer;
+	var session, timer, init, getMeasures, refreshData, drawSpeedometer, updateSpeedometer;
 
 	session = {
 
@@ -31,6 +31,7 @@ Monitoring.Widget = (function(_Monitoring, undefined) {
 			percDiskUsed: 0
 		}
 	};
+
 
 	/** 
 
@@ -77,9 +78,13 @@ Monitoring.Widget = (function(_Monitoring, undefined) {
 
 		getMeasures();
 
-		if(period !== undefined){
+		if(period !== undefined) {
+
+			console.log('Restarting timer...');
+			clearInterval(timer);
+
 			console.log('Setting refresh period to '+ period + ' seconds...')
-			setInterval(function(){refreshData()}, period*1000);
+			timer = setInterval(function(){refreshData()}, period*1000);
 		}
 		
 	};

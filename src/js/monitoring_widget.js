@@ -85,7 +85,11 @@ Monitoring.Widget = (function(_Monitoring, undefined) {
 
 			console.log('Setting refresh period to '+ period + ' seconds...')
 			timer = setInterval(function(){refreshData()}, period*1000);
-		}
+		} else {
+
+			console.log('Disabled periodical data refreshing');
+			clearInterval(timer);
+		} 
 		
 	};
 

@@ -272,7 +272,7 @@ MonitWidget.RealTime = (function(_Monitoring, undefined) {
  
 	drawSpeedometer = function() {
 
-		var id, canvas_id;
+		var id, canvas_id, speedometer;
 
 		canvas_id = session.divId + '-canvas';
 
@@ -284,13 +284,13 @@ MonitWidget.RealTime = (function(_Monitoring, undefined) {
 
 		$('#refresh').append($('<button>', {text: 'Refresh', id: 'refresh_btn'}));
 		
-		var speedometer = new Speedometer({elementId: session.divId, 
-											canvasId: canvas_id, 
-												size: 300, 
-												maxVal: "100", 
-												name: session.element.name, 
-												units: "%"
-											});
+		
+		speedometer = new Speedometer({elementId: session.divId, 
+									   canvasId: canvas_id, 
+									   size: 300, 
+									   maxVal: "100", 
+									   name: session.element.name, 
+									   units: "%"});
 
 		$('#refresh_btn').on('click', refreshData);
 

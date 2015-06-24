@@ -187,19 +187,19 @@ MonitWidget.RealTime = (function(_Monitoring, undefined) {
 	// vm_id: ID of the vm you want to monitor.
 	// token: author access token.
 	// region: node where the vm has been deployed.
-	// monit_param: key to identify the parameter you want to monitor. 
+	// param: key to identify the parameter you want to monitor. 
 	// {Monitoring CPU: 'cpu', Monitoring disk: 'disk', Monitoring RAM: 'mem'}
 	// divId: id of the div where you want to place the monitoring graphic.
 	// period: optional param. Defines the period , in seconds , of the refresh function. 
 	// Set by default as undefined
 	
-	init = function(vm_id, token, region, monit_param, divId, period) {
+	init = function(vm_id, token, region, param, divId, period) {
 
 		session.id = vm_id;
 		session.token = token;
 		session.region = region;
 		session.divId = divId;
-		session.element.id = monit_param;
+		session.element.id = param;
 		session.element.period = period || undefined;
 
 		switch(session.element.id) {
@@ -341,7 +341,7 @@ MonitWidget.RealTime = (function(_Monitoring, undefined) {
 
 			default:
 			//console.log(session.element.id);
-			alert("Error. Can't identify 'monit_param' in updateSpeedometers");
+			alert("Error. Can't identify 'param' in updateSpeedometers");
 		}
 	};
 
@@ -440,18 +440,18 @@ MonitWidget.Historic = (function(_Monitoring, undefined) {
 	// vm_id: ID of the vm you want to monitor.
 	// token: author access token.
 	// region: node where the vm has been deployed.
-	// monit_param: key to identify the parameter you want to monitor. 
+	// param: key to identify the parameter you want to monitor. 
 	// {Monitoring CPU: 'cpu', Monitoring disk: 'disk', Monitoring RAM: 'mem'}
 	// divId: id of the div where you want to place the monitoring graphic.
 	// scale: optional param. Key to identify the scale you want to give to the graph.
 	// {'day', 'week', 'month'} It is set by default at 'month' 
 
-	init = function(vm_id, token, region, monit_param, divId, scale) {
+	init = function(vm_id, token, region, param, divId, scale) {
 
 		session.id = vm_id;
 		session.token = token;
 		session.region = region;
-		session.element.id = monit_param;
+		session.element.id = param;
 		session.div = divId;
 		session.scale = scale || 'month';
 

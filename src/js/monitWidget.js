@@ -160,6 +160,7 @@ MonitWidget.RealTime = (function(_Monitoring, undefined) {
 		id: "",
 		token: "",
 		region: "",
+		div: "",
 
 		element: {
 			id: "",
@@ -198,7 +199,7 @@ MonitWidget.RealTime = (function(_Monitoring, undefined) {
 		session.id = vm_id;
 		session.token = token;
 		session.region = region;
-		session.divId = divId;
+		session.div = divId;
 		session.element.id = param;
 		session.element.period = period || undefined;
 
@@ -274,9 +275,9 @@ MonitWidget.RealTime = (function(_Monitoring, undefined) {
 
 		var id, canvas_id, speedometer;
 
-		canvas_id = session.divId + '-canvas';
+		canvas_id = session.div + '-canvas';
 
-		id = '#' + session.divId;
+		id = '#' + session.div;
 		$(id).empty();
 
 		$(id).append($('<canvas>', {id: canvas_id}),
@@ -285,7 +286,7 @@ MonitWidget.RealTime = (function(_Monitoring, undefined) {
 		$('#refresh').append($('<button>', {text: 'Refresh', id: 'refresh_btn'}));
 		
 		
-		speedometer = new Speedometer({elementId: session.divId, 
+		speedometer = new Speedometer({elementId: session.div, 
 									   canvasId: canvas_id, 
 									   size: 300, 
 									   maxVal: "100", 

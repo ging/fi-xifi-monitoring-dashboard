@@ -413,12 +413,6 @@ MonitWidget.Historic = (function(_Monitoring, undefined) {
 
 		element: {
 			id: ''
-		},
-
-		measures: {
-			percCPULoad: 0,
-			percRAMUsed: 0,
-			percDiskUsed: 0
 		}
 	};
 

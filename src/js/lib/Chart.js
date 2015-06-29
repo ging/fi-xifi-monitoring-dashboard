@@ -148,18 +148,18 @@ window.Chart = function(context){
 	};
 
 	//Variables global to the chart
-	var width = context.canvas.width;
-	var height = context.canvas.height;
+	var width = 600;
+	var height = 300;
 
 
 	//High pixel density displays - multiply the size of the canvas height/width by the device pixel ratio, then scale.
-	// if (window.devicePixelRatio) {
-	// 	context.canvas.style.width = width + "px";
-	// 	context.canvas.style.height = height + "px";
-	// 	context.canvas.height = height * window.devicePixelRatio;
-	// 	context.canvas.width = width * window.devicePixelRatio;
-	// 	context.scale(window.devicePixelRatio, window.devicePixelRatio);
-	// }
+	 if (window.devicePixelRatio) {
+		context.canvas.style.width = width + "px";
+	 	context.canvas.style.height = height + "px";
+		context.canvas.height = height * window.devicePixelRatio;
+	 	context.canvas.width = width * window.devicePixelRatio;
+	 	context.scale(window.devicePixelRatio, window.devicePixelRatio);
+	 }
 
 	this.PolarArea = function(data,options){
 
@@ -316,7 +316,8 @@ window.Chart = function(context){
 			animation : true,
 			animationSteps : 60,
 			animationEasing : "easeOutQuart",
-			onAnimationComplete : null
+			onAnimationComplete : null,
+			responsive: true
 		};		
 		var config = (options) ? mergeChartConfig(chart.Line.defaults,options) : chart.Line.defaults;
 

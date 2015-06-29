@@ -31,7 +31,7 @@ div#refresh_h {
      color: #0093c6;
      font-size: 23px; 
      padding-bottom: 15px;
-     padding-left: 60px;}
+     padding-left: 14px;}
 
 button#refresh_btn_h {
      width: 62px;
@@ -44,7 +44,7 @@ button#refresh_btn_h {
      border-radius: 6px;
      border-color: transparent;
      border-style: solid;
-     margin-left: 36px;
+     margin-left: 298px;
 }
 
 #refresh_btn_h:hover {

@@ -655,6 +655,7 @@ MonitWidget.Historic = (function(_Monitoring, undefined) {
 		$(id).append($('<div>', {id: 'refresh_h'}),
 					 $('<canvas>', {id: canvas_id}));
 
+
 		$('#refresh_h').append(dataset.title, $('<button>', {text: 'Refresh', id: 'refresh_btn_h'}));
 
 		$('#refresh_btn_h').on('click', refreshData);

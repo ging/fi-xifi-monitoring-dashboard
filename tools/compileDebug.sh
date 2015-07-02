@@ -1,8 +1,9 @@
 #!/bin/bash
 mkdir ../dist
-FILE=../dist/monit_widget.js
+FILE=../dist/monitWidget.js
 rm $FILE
 cat ../src/js/lib/encoder.js >> $FILE
-cat ../src/js/lib/monitoring_widget.js >> $FILE
+cat ../src/js/lib/Chart.js >> $FILE
 cat ../src/js/lib/speedometer.js >> $FILE
-cat ../src/js/init_vm.js >> $FILE
+cat ../src/js/lib/jquery-2.1.1.min.js >> $FILE
+cat ../src/js/monitWidget.js >> $FILE

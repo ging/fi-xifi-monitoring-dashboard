@@ -7,6 +7,8 @@ For proper operation of the widget is necessary to know:
 - The id of the virtual machine.
 - The user Oauth2 token (access token).
 - The region in which the machine has been deployed.
+- The period defined in seconds, for the execution of the refresh function.
+<blockquote>Set it as <code>undefined</code>, if you want to disable periodical execution.</blockquote>
 - The parameter you want to monitor ['cpu' 'disk', 'mem']
 - The id of the div where you want to include the graphic.
 
@@ -34,11 +36,13 @@ cd fi-xifi-monitoring-dashboard/tools
 - var vm_id ='adsds4-s85s-asf55-8723411-2232334'
 - var token = 'aulfbgd732fdfdgdgfdsd12334516863321'
 - var region = 'Spain'
+- var period = 10
 - var check_param = 'mem'
 - var divId = 'speedometer'
 
 5 - Call the main function:
 
-init_vm(vm_id, token, region, check_param, divId)
+<pre>init_vm(vm_id, token, region, period, check_param, divId)</pre>
+
 
 6 - That's all!

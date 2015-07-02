@@ -1,18 +1,12 @@
 fi-xifi-monitoring-dashboard
 ============================
 
-This widget allows you to add to your website a dynamic graph showing monitoring data of a virtual machine.
+This library allows you to add to your website, a dynamic graph showing monitoring data of a virtual machine. The displayed data, belongs to percentage measures of the CPU, the Disk or the RAM memory.
 
-For proper operation of the widget is necessary to know:
-- The id of the virtual machine.
-- The user Oauth2 token (access token).
-- The region in which the machine has been deployed.
-- The period defined in seconds, for the execution of the refresh function.
-<blockquote>Set it as <code>undefined</code>, if you want to disable periodical execution.</blockquote>
-- The parameter you want to monitor ['cpu' 'disk', 'mem']
-- The id of the div where you want to include the graphic.
+It includes: monitoring API, real time monitoring widget and historic monitoring data widget.
 
-In addition, a refresh button that updates the data for monitoring is included.
+For proper operation of the widget it iss necessary to include jquery library in your web site.
+
 
 -- Example of use --
 
@@ -22,27 +16,40 @@ In addition, a refresh button that updates the data for monitoring is included.
 git clone https://github.com/ging/fi-xifi-monitoring-dashboard.git
 </pre>
 
-2 - Go to 'tools' directory and run compile.sh. A new monit_widget.js file will be created.
+2 - Go to 'tools' directory and run compile.sh. A new monitWidget.js file will be created in dist folder.
 
 <pre>
 cd fi-xifi-monitoring-dashboard/tools
 ./compile.sh
 </pre>
 
-3 - Include monit_widget.js in your website (saved in dist/monit_widget.js).
+3 - Include monitWidget.js in your website (saved in dist/monitWidget.js).
 
 4 - Define the different parameters:
 
-- var vm_id ='adsds4-s85s-asf55-8723411-2232334'
-- var token = 'aulfbgd732fdfdgdgfdsd12334516863321'
-- var region = 'Spain'
-- var period = 10
-- var check_param = 'mem'
-- var divId = 'speedometer'
+If you are going to initialize real time monitoring widget, this are the params to be set:
 
-5 - Call the main function:
+<b>vm_id:</b> virtual machine identifier.
+<b>token:</b> user OAuth2 token.
+<b>region:</b> region in which the virtual machine was deployed.
+<b>param:</b> keyword that identifies the machine params to be monitored. Values = ['cpu', 'mem', 'disk']
+<b>divID:</b> div id in which you want to include the widget.
+<b>period:</b> optional parameter. Data refresh period defined in seconds. Default value: undefined.
 
-<pre>init_vm(vm_id, token, region, period, check_param, divId)</pre>
+From the other side, if you are going to initialize the historic monitoring data widget, this are the params to be set:
+
+<b>vm_id:</b> virtual machine identifier.
+<b>token:</b> user OAuth2 token.
+<b>region:</b> region in which the virtual machine was deployed.
+<b>param:</b> keyword that identifies the machine params to be monitored. Values = ['cpu', 'mem', 'disk']
+<b>divID:</b> div id in which you want to include the widget.
+<b>scale:</b> optional parameter. Keyword that identifies the scale of the graph. Values = ['day', 'week', 'month']. Default value = 'month'.
+
+5 - Finally, call the main function:
+
+<pre>MonitWidget.RealTime.init(vm_id, token, region, param, divId, period)</pre>
+or
+<pre>MonitWidget.Historic.init(vm_id, token, region, param, divId, scale)</pre>
 
 
 6 - That's all!

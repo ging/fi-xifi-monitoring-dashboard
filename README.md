@@ -29,32 +29,32 @@ cd fi-xifi-monitoring-dashboard/tools
 
 If you are going to initialize real time monitoring widget, this are the params to be set:
 
-<b>vm_id:</b> virtual machine identifier.
+<b>vm_id:</b> <i>[String]</i>  virtual machine identifier.
 <br>
-<b>token:</b> user OAuth2 token.
+<b>token:</b> <i>[String]</i>  user OAuth2 token.
 <br>
-<b>region:</b> region in which the virtual machine was deployed.
+<b>region:</b> <i>[String]</i>  region in which the virtual machine was deployed.
 <br>
-<b>param:</b> keyword that identifies the machine params to be monitored. Values = ['cpu', 'mem', 'disk']
+<b>param:</b> <i>[String]</i>  keyword that identifies the machine params to be monitored. Values = ['cpu', 'mem', 'disk']
 <br>
-<b>divID:</b> div id in which you want to include the widget.
+<b>divID:</b> <i>[String]</i>  div id in which you want to include the widget.
 <br>
-<b>period:</b> optional parameter. Data refresh period defined in seconds. Default value: undefined.
+<b>period:</b> <i>[Int]</i> optional parameter. Data refresh period defined in seconds. Default value: undefined.
 <br>
 
 From the other side, if you are going to initialize the historic monitoring data widget, this are the params to be set:
 
-<b>vm_id:</b> virtual machine identifier.
+<b>vm_id:</b> <i>[String]</i> virtual machine identifier.
 <br>
-<b>token:</b> user OAuth2 token.
+<b>token:</b> <i>[String]</i>  user OAuth2 token.
 <br>
-<b>region:</b> region in which the virtual machine was deployed.
+<b>region:</b> <i>[String]</i>  region in which the virtual machine was deployed.
 <br>
-<b>param:</b> keyword that identifies the machine params to be monitored. Values = ['cpu', 'mem', 'disk']
+<b>param:</b> <i>[String]</i>  keyword that identifies the machine params to be monitored. Values = ['cpu', 'mem', 'disk']
 <br>
-<b>divID:</b> div id in which you want to include the widget.
+<b>divID:</b> <i>[String]</i>  div id in which you want to include the widget.
 <br>
-<b>scale:</b> optional parameter. Keyword that identifies the scale of the graph. Values = ['day', 'week', 'month']. Default value = 'month'.
+<b>scale:</b> <i>[String]</i>  optional parameter. Keyword that identifies the scale of the graph. Values = ['day', 'week', 'month']. Default value = 'month'.
 <br>
 
 5 - Finally, call the main function:

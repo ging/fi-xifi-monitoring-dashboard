@@ -5,7 +5,7 @@ This library allows you to add to your website, a dynamic graph showing monitori
 
 It includes: monitoring API, real time monitoring widget and historic monitoring data widget.
 
-For proper operation of the widget it iss necessary to include jquery library in your web site.
+For proper operation of the widget it is necessary to include jquery library in your web site.
 
 
 -- Example of use --
@@ -25,7 +25,7 @@ cd fi-xifi-monitoring-dashboard/tools
 
 3 - Include monitWidget.js in your website (saved in dist/monitWidget.js).
 
-4 - Define the different parameters:
+4 - Define the different params:
 
 If you are going to initialize real time monitoring widget, this are the params to be set:
 
